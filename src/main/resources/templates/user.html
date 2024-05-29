@@ -1,0 +1,50 @@
+<! DOCTYPE html>
+<html lang="en" xmlns: th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Welcome to My Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+
+I
+<body>
+<div class="container-fluid text-center">
+   <div> <h1 class="deprecated-label" style=" font-family: 'Arial Narrow'; padding-bottom: 60px">WELCOME TO USERS MANAGEMENT SAMPLE APPLICATION </h1></div>
+    <div class="m-2" style="padding-bottom: 40px">
+        <a class="btn btn-success" th:href="@{/register}">Add New User</a>
+    </div>
+    <div th:if="${message}" align="center" class="alert alert-success text-center" style="max-width: 700px; margin-left: 30%">
+        [[${message}]]
+    </div>
+    <div>
+        <table  class="table" style="text-align: center ; max-width: 80%; border: 1px solid;margin-left: 10%">
+            <thead class="thead-dark" style="background-color: black; color: white">
+            <tr>
+                <td>ID</td>
+                <td>E-mail</td>
+                <td>Full Name</td>
+                <td>Enabled</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${listallusers}">
+                <tr>
+                        <td>[[${user.id}]]</td>
+                        <td>[[${user.Email}]]</td>
+                        <td>[[${user.name}]]</td>
+                        <td>[[${user.role}]]</td>
+                        <td>
+                            <a class="btn btn-primary"  th:href="@{'/user/edit/' + ${user.id}}">Edit</a>
+                            <a class="btn btn-danger" th:href="@{'/user/delete/' + ${user.id}}">Delete</a>
+
+                        </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Product</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .btn-block {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-block:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-center mb-4">Edit Product</h2>
+      <form th:action="@{/product/update/{id}(id=${products.id})}" method="post" th:object="${products}" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="product_id">Product ID:</label>
+          <input type="text" class="form-control" id="product_id" name="product_id" th:value="${products.product_id}" readonly />
+        </div>
+        <div class="form-group">
+          <label for="product_name">Product Name:</label>
+          <input type="text" class="form-control" id="product_name" name="product_name" th:value="${products.product_name}" required />
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="text" class="form-control" id="quantity" name="quantity" th:value="${products.quantity}" required />
+        </div>
+        <div class="form-group">
+          <label for="unitPrice">Unit Price:</label>
+          <input type="text" class="form-control" id="unitPrice" name="unitPrice" th:value="${products.unitPrice}" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" rows="7" id="description" name="description" required th:text="${products.description}"></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-block">Update</button>
+        </div>
+      </form>
+      <div class="text-center mt-4">
+        <a th:href="@{/admindash}" class="btn btn-secondary">Back HomePage</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

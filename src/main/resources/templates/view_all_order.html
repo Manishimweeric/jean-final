@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Style the table */
+    table {
+
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: "Comic Sans MS";
+    }
+
+    /* Style table header */
+    th {
+      background-color: #dee2e6;
+      text-align: left;
+      padding: 8px;
+      color: black;
+    }
+
+    /* Style table data */
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body><style>
+  .container {
+    font-family: 'Arial', sans-serif;
+  }
+  h2 {
+    margin-bottom: 30px;
+  }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+  }
+  .cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+  }
+  .cart-item-details {
+    flex-grow: 1;
+  }
+  .cart-item-details p {
+    margin: 0;
+    font-size: 18px;
+  }
+  .price {
+    font-weight: bold;
+    color: #007bff;
+  }
+  button {
+    padding: 5px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #c82333;
+  }
+
+</style>
+</head>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">E-Commerce</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/login">Sign Out </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container" >
+<h2 class="mt-5" style="font-family: Garamond">ALL ORDERS LIST </h2>
+  <table class="mt-5" style="width: 100%">
+    <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Order Date</th>
+      <th>Total Amount</th>
+      <th>Status</th>
+      <th style="text-align: center">Order Products</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${all_order}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.orderDate}"></td>
+      <td th:text="${order.total_amount}"></td>
+      <td th:text="${order.status}" style="color: blue"></td>
+      <td style="text-align: center">
+
+        <table >
+          <thead >
+          <tr style="text-align: center">
+            <th style="background-color: cadetblue">Product Name</th>
+            <th style="background-color: cadetblue">Quantity</th>
+            <th style="background-color: cadetblue">Total Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="product : ${order.orderProducts}">
+            <td th:text="${product.product.product_name}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td th:text="${product.totalPrice}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</th:block>
+
+<th:block th:if="${#lists.isEmpty(all_order)}">
+  <p>No orders found.</p>
+</th:block>
+  <p style="margin-left: 40%" class="mt-5"> <a th:href="@{/admindash}" class="btn btn-secondary mx-3 col-md-3">Back HomePage</a></p>
+</div>
+</body>
+</html>

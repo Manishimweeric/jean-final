@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container {
+      font-family: 'Arial', sans-serif;
+    }
+    h2 {
+      margin-bottom: 30px;
+    }
+    .order-card {
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f8f9fa;
+    }
+    .order-card h3 {
+      margin-top: 0;
+    }
+    .order-details p, .product-details p {
+      margin: 0;
+    }
+    .product-card {
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #e9ecef;
+    }
+    .product-card p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">E-Commerce</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">View Cart</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/allusers">Order Reviews</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/login">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container">
+  <h2 class="mt-5" style="font-family: Garamond">ALL ORDERS LIST</h2>
+  <div th:each="order : ${all_order_user}">
+    <div class="order-card row">
+      <div class="col-md-8">
+        <div class="order-details">
+          <h3>Order ID: <span th:text="${order.id}"></span></h3>
+          <p>Order Date: <span th:text="${order.orderDate}"></span></p>
+          <p>Total Amount: <span th:text="${order.total_amount}"></span></p>
+          <p>Status: <span th:text="${order.status}" style="color: blue"></span></p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-details">
+          <h4>Order Products:</h4>
+          <div th:each="product : ${order.orderProducts}" class="product-card">
+            <p>Product Name: <span th:text="${product.product.product_name}"></span></p>
+            <p>Quantity: <span th:text="${product.quantity}"></span></p>
+            <p>Total Price: <span th:text="${product.totalPrice}"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:if="${#lists.isEmpty(all_order_user)}">
+    <p>No orders found.</p>
+  </div>
+</div>
+</body>
+</html>

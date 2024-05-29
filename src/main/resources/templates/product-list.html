@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Bahnschrift', sans-serif;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      margin-bottom: 30px;
+      color: #343a40;
+    }
+    .table-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .table th, .table td {
+      vertical-align: middle;
+    }
+    .alert {
+      margin-bottom: 20px;
+    }
+    .back-homepage {
+      display: inline-block;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class=" mt-5" style="width: 80%;margin-left: 200px">
+  <div class="table-container">
+    <h2 class="text-center">ALL LIST OF PRODUCTS</h2>
+
+    <div th:if="${message4}" class="alert alert-success text-center col-md-4 mx-auto">
+      [[${message4}]]
+    </div>
+
+    <table class="table table-striped table-hover mt-4">
+      <thead class="thead-dark">
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="product : ${products}">
+        <td th:text="${product.product_id}"></td>
+        <td th:text="${product.product_name}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.unitPrice}"></td>
+        <td>
+          <img th:src="${product.image}" class="img-fluid img-thumbnail" style="max-width: 100px; max-height: 100px;" th:alt="${product.image}" />
+        </td>
+        <td th:text="${product.description}" class="text-truncate" style="max-width: 150px;"></td>
+        <td th:text="${product.category.name}"></td>
+        <td>
+          <a th:href="@{/editproduct(id=${product.id})}" class="btn btn-primary btn-sm col-md-10">Edit</a>
+        </td>
+        <td>
+
+          <a th:href="@{/Deleteproduct(id=${product.id})}" class="btn btn-danger btn-sm col-md-10">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <a th:href="@{/admindash}" class="btn btn-secondary back-homepage">Back HomePage</a>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
